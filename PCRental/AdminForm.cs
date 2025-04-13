@@ -43,6 +43,77 @@ namespace PCRental
         {
             LoadPCs();
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new LoginForm().Show();
+        }
+
+        private void btnDeletePC_Click(object sender, EventArgs e)
+        {
+            if (dgvPCs.CurrentRow != null)
+            {
+                string pcName = dgvPCs.CurrentRow.Cells["Name"].Value.ToString();
+                DialogResult result = MessageBox.Show($"Вы уверены, что хотите удалить ПК '{pcName}'?", "Подтверждение", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    int pcId = Convert.ToInt32(dgvPCs.CurrentRow.Cells["PCID"].Value);
+
+                    using (SqlConnection conn = DB.GetConnection())
+                    {
+                        string query = "DELETE FROM PCs WHERE PCID = @PCID";
+                        SqlCommand cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@PCID", pcId);
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+                    }
+
+                    LoadPCs();
+                    MessageBox.Show("ПК удалён.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите ПК для удаления.");
+            }
+        }
+
+        private void btnChangeStatus_Click(object sender, EventArgs e)
+        {
+            if (dgvPCs.CurrentRow != null)
+            {
+                int pcId = Convert.ToInt32(dgvPCs.CurrentRow.Cells["PCID"].Value);
+                string newStatus = cmbStatus.SelectedItem?.ToString();
+
+                if (string.IsNullOrEmpty(newStatus))
+                {
+                    MessageBox.Show("Пожалуйста, выберите новый статус.");
+                    return;
+                }
+
+                using (SqlConnection conn = DB.GetConnection())
+                {
+                    string query = "UPDATE PCs SET Status = @Status WHERE PCID = @PCID";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Status", newStatus);
+                    cmd.Parameters.AddWithValue("@PCID", pcId);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+
+                LoadPCs();
+                MessageBox.Show("Статус обновлён.");
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите ПК.");
+            }
+        }
     }
 }
 

@@ -51,5 +51,45 @@ namespace PCRental
             addForm.ShowDialog();
             LoadPCs(); // Обновим список после добавления
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new LoginForm().Show();
+        }
+
+        private void btnChangeStatus_Click(object sender, EventArgs e)
+        {
+            if (dgvLandlordPCs.CurrentRow != null)
+            {
+                int pcId = Convert.ToInt32(dgvLandlordPCs.CurrentRow.Cells["PCID"].Value);
+                string newStatus = cmbStatus.SelectedItem?.ToString();
+
+                if (string.IsNullOrEmpty(newStatus))
+                {
+                    MessageBox.Show("Пожалуйста, выберите новый статус.");
+                    return;
+                }
+
+                using (SqlConnection conn = DB.GetConnection())
+                {
+                    string query = "UPDATE PCs SET Status = @Status WHERE PCID = @PCID";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Status", newStatus);
+                    cmd.Parameters.AddWithValue("@PCID", pcId);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+
+                LoadPCs();
+                MessageBox.Show("Статус обновлён.");
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите ПК.");
+            }
+        }
     }
 }

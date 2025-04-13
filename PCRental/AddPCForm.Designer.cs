@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddPCForm));
             this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblCPU = new System.Windows.Forms.Label();
@@ -199,6 +200,7 @@
             this.Controls.Add(this.lblCPU);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddPCForm";
             this.Text = "AddPCForm";
             this.ResumeLayout(false);
