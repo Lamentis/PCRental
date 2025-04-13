@@ -33,6 +33,7 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.cmbDuration = new System.Windows.Forms.ComboBox();
+            this.lblTotalPrice = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPCs)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,23 +82,32 @@
             // 
             // cmbDuration
             // 
-            this.cmbDuration.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDuration.FormattingEnabled = true;
             this.cmbDuration.Items.AddRange(new object[] {
             "1 день",
             "1 неделя",
             "1 месяц",
-            "Другое (свяжитесь с админом)"});
+            "Другое (обсудить с админом)"});
             this.cmbDuration.Location = new System.Drawing.Point(12, 306);
             this.cmbDuration.Name = "cmbDuration";
-            this.cmbDuration.Size = new System.Drawing.Size(153, 21);
+            this.cmbDuration.Size = new System.Drawing.Size(121, 21);
             this.cmbDuration.TabIndex = 4;
+            // 
+            // lblTotalPrice
+            // 
+            this.lblTotalPrice.AutoSize = true;
+            this.lblTotalPrice.Location = new System.Drawing.Point(218, 314);
+            this.lblTotalPrice.Name = "lblTotalPrice";
+            this.lblTotalPrice.Size = new System.Drawing.Size(147, 13);
+            this.lblTotalPrice.TabIndex = 5;
+            this.lblTotalPrice.Text = "Итоговая стоимость: 0 руб.";
             // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblTotalPrice);
             this.Controls.Add(this.cmbDuration);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnRefresh);
@@ -118,5 +128,6 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.ComboBox cmbDuration;
+        private System.Windows.Forms.Label lblTotalPrice;
     }
 }

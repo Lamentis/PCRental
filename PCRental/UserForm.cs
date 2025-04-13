@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using PCRental;
 
+
 namespace PCRental
 {
     public partial class UserForm : Form
@@ -22,6 +23,8 @@ namespace PCRental
             this.userId = userId;
             LoadPCs();
             InitializeDurationComboBox();
+            cmbDuration.SelectedIndexChanged += cmbDuration_SelectedIndexChanged;
+            dgvPCs.SelectionChanged += dgvPCs_SelectionChanged;
         }
 
         private void InitializeDurationComboBox()
@@ -86,5 +89,54 @@ namespace PCRental
             new LoginForm().Show();
         }
 
+        private void cmbDuration_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateTotalPrice();
+        }
+
+        private void dgvPCs_SelectionChanged(object sender, EventArgs e)
+        {
+            UpdateTotalPrice();
+        }
+
+        private void UpdateTotalPrice()
+        {
+            if (dgvPCs.CurrentRow == null || cmbDuration.SelectedItem == null)
+            {
+                lblTotalPrice.Text = "Итоговая стоимость: 0 руб.";
+                return;
+            }
+
+            string duration = cmbDuration.SelectedItem.ToString();
+            if (duration == "Другое (свяжитесь с админом)")
+            {
+                lblTotalPrice.Text = "Обсудите цену с админом.";
+                return;
+            }
+
+            if (!decimal.TryParse(dgvPCs.CurrentRow.Cells["PricePerHour"].Value.ToString(), out decimal pricePerHour))
+            {
+                lblTotalPrice.Text = "Ошибка в цене.";
+                return;
+            }
+
+            int totalHours = 0;
+
+            switch (duration)
+            {
+                case "1 день":
+                    totalHours = 24;
+                    break;
+                case "1 неделя":
+                    totalHours = 7 * 24;
+                    break;
+                case "1 месяц":
+                    totalHours = 30 * 24;
+                    break;
+            }
+
+            decimal total = pricePerHour * totalHours;
+            lblTotalPrice.Text = $"Итоговая стоимость: {total} руб.";
+        }
     }
 }
