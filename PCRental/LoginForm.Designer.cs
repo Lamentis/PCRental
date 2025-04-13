@@ -41,9 +41,9 @@
             this.lblEmail.AutoSize = true;
             this.lblEmail.Location = new System.Drawing.Point(305, 90);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(37, 13);
+            this.lblEmail.Size = new System.Drawing.Size(40, 13);
             this.lblEmail.TabIndex = 0;
-            this.lblEmail.Text = "Почта";
+            this.lblEmail.Text = "Почта:";
             // 
             // txtEmail
             // 
@@ -57,9 +57,9 @@
             this.lblPassword.AutoSize = true;
             this.lblPassword.Location = new System.Drawing.Point(307, 141);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(45, 13);
+            this.lblPassword.Size = new System.Drawing.Size(48, 13);
             this.lblPassword.TabIndex = 2;
-            this.lblPassword.Text = "Пароль";
+            this.lblPassword.Text = "Пароль:";
             // 
             // txtPassword
             // 
@@ -80,7 +80,7 @@
             // 
             // btnRegister
             // 
-            this.btnRegister.Location = new System.Drawing.Point(335, 243);
+            this.btnRegister.Location = new System.Drawing.Point(337, 228);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(138, 23);
             this.btnRegister.TabIndex = 5;
